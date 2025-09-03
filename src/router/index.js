@@ -1,12 +1,36 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import UserAuth from '../views/user/UserAuth.vue'
+import UserAuthView from '@/views/user/UserAuth.vue'
+import UserDashboardView from '@/views/user/UserDashboard.vue'
+import UserHomeView from '@/views/user/UserHome.vue'
+import UserProgramView from '@/views/user/UserProgram.vue'
+import NotFoundView from '@/views/errors/NotFound.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Auth',
-    component: UserAuth,
+    name: 'UserAuthView',
+    component: UserAuthView,
+  },
+  {
+    path: '/user/dashboard',
+    name: 'UserDashboardView',
+    component: UserDashboardView,
+  },
+  {
+    path: '/user/home',
+    name: 'UserHomeView',
+    component: UserHomeView,
+  },
+  {
+    path: '/user/program',
+    name: 'UserProgramView',
+    component: UserProgramView,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFoundView',
+    component: NotFoundView,
   },
 ]
 

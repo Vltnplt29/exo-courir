@@ -9,9 +9,7 @@ import FooterPage from './components/FooterPage.vue'
 </script>
 
 <template>
-  <div
-    class="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-blue-200 dark:from-gray-950 dark:to-gray-800 transition-colors"
-  >
+  <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 transition-colors">
     <main class="flex-1 flex flex-col items-center justify-center py-12 px-4">
       <RouterView />
     </main>

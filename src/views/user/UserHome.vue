@@ -1,3 +1,4 @@
 <template>
-    <h1>Home</h1>
+  <NavbarPage />
+  <h1>Home</h1>
 </template>
