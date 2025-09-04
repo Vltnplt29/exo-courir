@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const API_BASE = 'http://localhost:8888/cockpit-core/api/'
 const API_KEY = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
@@ -7,8 +7,38 @@ const API_KEY = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
 export const useUserStore = defineStore('user', () => {
   const users = ref([])
   const currentUser = ref(null)
+
+  // Suivi du programme en cours pour l'utilisateur connecté
+  const currentProgram = ref(null) // { id, titre, ... }
+  const currentWeek = ref(0) // index de la semaine en cours (0 = première semaine)
+
   const loading = ref(false)
   const error = ref(null)
+  // Démarrer un programme pour l'utilisateur
+  function startProgram(program) {
+    currentProgram.value = program
+    currentWeek.value = 0
+  }
+
+  // Passer à la semaine suivante
+  function nextWeek() {
+    if (currentProgram.value && currentWeek.value < (currentProgram.value.weeks?.length || 0) - 1) {
+      currentWeek.value++
+    }
+  }
+
+  // Revenir à la semaine précédente
+  function prevWeek() {
+    if (currentProgram.value && currentWeek.value > 0) {
+      currentWeek.value--
+    }
+  }
+
+  // Arrêter le suivi du programme
+  function stopProgram() {
+    currentProgram.value = null
+    currentWeek.value = 0
+  }
 
   async function fetchUsers() {
     loading.value = true
@@ -82,6 +112,8 @@ export const useUserStore = defineStore('user', () => {
     currentUser.value = null
   }
 
+  const isLoggedIn = computed(() => !!currentUser.value)
+
   return {
     users,
     currentUser,
@@ -92,5 +124,13 @@ export const useUserStore = defineStore('user', () => {
     findUserByEmail,
     login,
     logout,
+    isLoggedIn,
+    // Suivi programme
+    currentProgram,
+    currentWeek,
+    startProgram,
+    nextWeek,
+    prevWeek,
+    stopProgram,
   }
 })
