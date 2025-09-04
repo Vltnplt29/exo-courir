@@ -85,13 +85,13 @@
             to="/user/program"
             :class="navLinkClass('/user/program', true)"
             @click="mobileOpen = false"
-            >Programme</router-link
+            >Nos programmes</router-link
           >
           <router-link
             to="/user/dashboard"
             :class="navLinkClass('/user/dashboard', true)"
             @click="mobileOpen = false"
-            >Statistiques</router-link
+            >Vos statistiques</router-link
           >
           <button
             v-if="isLoggedIn"

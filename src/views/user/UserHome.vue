@@ -18,8 +18,14 @@
       <router-link
         to="/user/program"
         class="mt-2 px-6 py-3 rounded-lg bg-white text-blue-600 font-bold text-lg shadow hover:bg-blue-50 transition"
-        >Découvrir mon programme</router-link
+        >Découvrir nos programmes</router-link
       >
+
+      <!-- Flèche et texte d'incitation à scroller (mobile uniquement) -->
+      <div class="flex sm:hidden flex-col items-center pt-6 mt-3">
+        <span class="text-3xl animate-bounce">⬇️</span>
+        <span class="text-xs text-white/90 mt-1">Fais défiler pour découvrir la suite</span>
+      </div>
     </div>
 
     <div class="grid md:grid-cols-2 gap-6 mb-8">

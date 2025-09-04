@@ -1,44 +1,47 @@
 <template>
   <section class="w-full max-w-4xl mx-auto mt-8 px-4">
     <h1
-      class="text-3xl md:text-4xl font-extrabold mb-4 text-center text-blue-600 dark:text-blue-400"
+      class="text-3xl md:text-4xl font-extrabold mb-8 text-center text-blue-600 dark:text-blue-400"
     >
       Nos programmes
     </h1>
     <div class="flex flex-col md:flex-row md:justify-center gap-4 mb-8">
-      <button
-        v-for="program in programs"
-        :key="program._id || program.ID"
-        @click="selectProgram(program)"
-        class="flex-1 rounded-2xl shadow-lg bg-white dark:bg-gray-900 border-2 border-blue-200 dark:border-blue-700 p-6 hover:bg-blue-50 dark:hover:bg-blue-800 transition flex flex-col items-center"
-        :class="{
-          'ring-2 ring-blue-500':
-            selectedProgram &&
-            (selectedProgram._id === (program._id || program.ID) ||
-              selectedProgram.ID === program.ID),
-        }"
-      >
-        <div class="font-bold text-lg text-blue-700 dark:text-blue-300 mb-1">
-          {{ program.titre }}
-        </div>
-        <div class="text-xs text-gray-500 mb-2">{{ program.categorie }}</div>
-        <div class="text-sm text-gray-700 dark:text-gray-200 text-center line-clamp-2">
-          {{ program.description }}
-        </div>
-      </button>
-      <button
-        @click="showCreateModal = true"
-        class="flex-1 rounded-2xl border-2 border-dashed border-blue-400 text-blue-500 py-6 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900 transition flex flex-col items-center justify-center"
-      >
-        <span class="text-3xl mb-1">+</span>
-        <span>Créer un programme</span>
-      </button>
+      <div class="flex flex-col md:flex-row gap-4 w-full">
+        <button
+          v-for="program in programs"
+          :key="getProgramId(program)"
+          @click="selectProgram(program)"
+          :class="[
+            'flex-1 rounded-2xl shadow-lg bg-white dark:bg-gray-900 border-2 border-blue-200 dark:border-blue-700 p-6 hover:bg-blue-50 dark:hover:bg-blue-800 transition flex flex-col items-center',
+            selectedProgram && getProgramId(selectedProgram) === getProgramId(program)
+              ? 'ring-2 ring-blue-500'
+              : '',
+          ]"
+        >
+          <div class="font-bold text-lg text-blue-700 dark:text-blue-300 mb-1">
+            {{ program.titre }}
+          </div>
+          <div class="text-xs text-gray-500 mb-2">{{ program.categorie }}</div>
+          <div class="text-sm text-gray-700 dark:text-gray-200 text-center line-clamp-2">
+            {{ program.description }}
+          </div>
+        </button>
+      </div>
+      <div class="mt-2 md:mt-0">
+        <button
+          @click="showCreateModal = true"
+          class="rounded-2xl border-2 border-dashed border-blue-400 text-blue-500 py-6 px-8 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900 transition flex flex-col items-center justify-center"
+        >
+          <span class="text-3xl mb-1">+</span>
+          <span>Créer un programme</span>
+        </button>
+      </div>
     </div>
-
+    <hr class="border-t-2 border-blue-500 dark:border-blue-400 mb-6" />
     <!-- Détail du programme sélectionné -->
     <div v-if="selectedProgram" class="mb-10 animate-fade-out">
       <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2 text-center">
-        {{ selectedProgram.titre }}
+        Programme / {{ selectedProgram.titre }}
       </h2>
       <p class="text-center text-gray-700 dark:text-gray-200 mb-4">
         {{ selectedProgram.description }}
@@ -51,52 +54,63 @@
           Démarrer ce programme
         </button>
       </div>
-      <div class="legend-box mb-8">
+      <div
+        class="rounded-2xl border-4 border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-gray-800 shadow-lg p-6 mb-8"
+      >
         <h2
-          class="text-lg font-bold text-blue-900 dark:text-blue-200 mb-2 text-center tracking-wide uppercase"
+          class="text-xl font-extrabold text-blue-800 dark:text-blue-200 mb-4 text-center tracking-wide uppercase"
         >
           Légende des abréviations
         </h2>
-        <ul class="grid md:grid-cols-3 gap-y-4 gap-x-6 text-base font-normal">
-          <li>
-            <span :class="`inline-block px-2 py-1 rounded font-mono mr-2 ${stepColorClass('E/S')}`"
+        <ul
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8 text-base font-semibold"
+        >
+          <li class="flex items-center gap-3">
+            <span
+              :class="`inline-block px-3 py-1 rounded-lg font-mono text-base font-bold shadow ${stepColorClass('E/S')}`"
               >E/S</span
             >
-            : Échauffement &amp; souplesse
+            <span class="text-gray-800 dark:text-gray-100">Échauffement &amp; souplesse</span>
           </li>
-          <li>
-            <span :class="`inline-block px-2 py-1 rounded font-mono mr-2 ${stepColorClass('T')}`"
+          <li class="flex items-center gap-3">
+            <span
+              :class="`inline-block px-3 py-1 rounded-lg font-mono text-base font-bold shadow ${stepColorClass('T')}`"
               >T</span
             >
-            : Trot (vitesse habituelle)
+            <span class="text-gray-800 dark:text-gray-100">Trot (vitesse habituelle)</span>
           </li>
-          <li>
-            <span :class="`inline-block px-2 py-1 rounded font-mono mr-2 ${stepColorClass('M')}`"
+          <li class="flex items-center gap-3">
+            <span
+              :class="`inline-block px-3 py-1 rounded-lg font-mono text-base font-bold shadow ${stepColorClass('M')}`"
               >M</span
             >
-            : Marche
+            <span class="text-gray-800 dark:text-gray-100">Marche</span>
           </li>
-          <li>
-            <span :class="`inline-block px-2 py-1 rounded font-mono mr-2 ${stepColorClass('C')}`"
+          <li class="flex items-center gap-3">
+            <span
+              :class="`inline-block px-3 py-1 rounded-lg font-mono text-base font-bold shadow ${stepColorClass('C')}`"
               >C</span
             >
-            : Course (trot rapide)
+            <span class="text-gray-800 dark:text-gray-100">Course (trot rapide)</span>
           </li>
-          <li>
-            <span :class="`inline-block px-2 py-1 rounded font-mono mr-2 ${stepColorClass('S')}`"
+          <li class="flex items-center gap-3">
+            <span
+              :class="`inline-block px-3 py-1 rounded-lg font-mono text-base font-bold shadow ${stepColorClass('S')}`"
               >S</span
             >
-            : Sprint
+            <span class="text-gray-800 dark:text-gray-100">Sprint</span>
           </li>
-          <li>
-            <span :class="`inline-block px-2 py-1 rounded font-mono mr-2 ${stepColorClass('Et')}`"
+          <li class="flex items-center gap-3">
+            <span
+              :class="`inline-block px-3 py-1 rounded-lg font-mono text-base font-bold shadow ${stepColorClass('Et')}`"
               >Et</span
             >
-            : Étirements
+            <span class="text-gray-800 dark:text-gray-100">Étirements</span>
           </li>
         </ul>
       </div>
-      <div v-for="(week, i) in selectedProgram.weeks" :key="i" class="mb-10">
+      <!-- Affiche les 3 premières semaines -->
+      <div v-for="(week, i) in selectedProgram.weeks.slice(0, 3)" :key="i" class="mb-10">
         <h2 class="text-xl font-bold text-green-600 dark:text-green-400 mb-4 text-center">
           Semaine {{ i + 1 }}
         </h2>
@@ -115,14 +129,114 @@
               Séance {{ j + 1 }}
             </h3>
             <ul class="text-base text-gray-800 dark:text-gray-100 space-y-1 mb-2">
-              <li v-for="(stepObj, k) in session.steps" :key="k">
+              <li
+                v-for="(stepObj, k) in session.steps"
+                :key="k"
+                class="flex items-center gap-2 flex-wrap"
+              >
                 <span
                   :class="`inline-block px-2 py-1 rounded font-mono text-sm mr-2 ${stepColorClass(stepObj.step)}`"
                 >
                   {{ stepObj.step }}
                 </span>
+                <span
+                  v-if="stepObj.duration"
+                  class="text-xs text-gray-500 dark:text-gray-400 font-mono mr-2"
+                >
+                  {{ stepObj.duration }}
+                </span>
+                <span
+                  v-if="stepObj.description"
+                  class="text-xs text-gray-600 dark:text-gray-300 italic"
+                >
+                  {{ stepObj.description }}
+                </span>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Accordion pour les semaines suivantes -->
+      <div v-for="(week, i) in selectedProgram.weeks.slice(3)" :key="'acc' + i" class="mb-6">
+        <button
+          @click="toggleWeek(i + 3)"
+          class="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-blue-50 dark:bg-gray-800 border-2 border-blue-200 dark:border-blue-700 font-bold text-blue-700 dark:text-blue-200 shadow mb-2"
+        >
+          <span>Semaine {{ i + 4 }}</span>
+          <span>
+            <svg
+              v-if="openedWeeks.includes(i + 3)"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 inline"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 inline"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </span>
+        </button>
+        <div v-if="openedWeeks.includes(i + 3)" class="animate-fade-in">
+          <div class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 justify-center">
+            <div
+              v-for="(session, j) in week.sessions"
+              :key="j"
+              :class="[
+                'flex-1 bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 border-2',
+                j % 2 === 0
+                  ? 'border-blue-200 dark:border-blue-700'
+                  : 'border-green-200 dark:border-green-700',
+              ]"
+            >
+              <h3 class="font-semibold text-lg text-blue-700 dark:text-blue-300 mb-2 text-center">
+                Séance {{ j + 1 }}
+              </h3>
+              <ul class="text-base text-gray-800 dark:text-gray-100 space-y-1 mb-2">
+                <li
+                  v-for="(stepObj, k) in session.steps"
+                  :key="k"
+                  class="flex items-center gap-2 flex-wrap"
+                >
+                  <span
+                    :class="`inline-block px-2 py-1 rounded font-mono text-sm mr-2 ${stepColorClass(stepObj.step)}`"
+                  >
+                    {{ stepObj.step }}
+                  </span>
+                  <span
+                    v-if="stepObj.duration"
+                    class="text-xs text-gray-500 dark:text-gray-400 font-mono mr-2"
+                  >
+                    {{ stepObj.duration }}
+                  </span>
+                  <span
+                    v-if="stepObj.description"
+                    class="text-xs text-gray-600 dark:text-gray-300 italic"
+                  >
+                    {{ stepObj.description }}
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -234,16 +348,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Accès dashboard utilisateur -->
-    <div
-      class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-2 flex justify-center z-40"
-    >
-      <router-link to="/user/dashboard" class="text-blue-600 font-bold flex items-center gap-1">
-        <span class="material-icons">insights</span>
-        Dashboard
-      </router-link>
-    </div>
   </section>
 </template>
 
@@ -340,6 +444,16 @@ const createProgram = async () => {
   }
 }
 
+// Accordéon pour les semaines > 3
+const openedWeeks = ref([])
+function toggleWeek(idx) {
+  if (openedWeeks.value.includes(idx)) {
+    openedWeeks.value = openedWeeks.value.filter((i) => i !== idx)
+  } else {
+    openedWeeks.value.push(idx)
+  }
+}
+
 // Coloration dynamique des steps (E/S, T, M, Et, S, C...)
 function stepColorClass(step) {
   if (step.startsWith('E/S'))
@@ -353,52 +467,8 @@ function stepColorClass(step) {
   if (step.startsWith('C')) return 'bg-pink-100 text-pink-800 dark:bg-pink-700 dark:text-pink-100'
   return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
 }
+
+function getProgramId(program) {
+  return program?._id || program?.ID || ''
+}
 </script>
-<style scoped>
-.input {
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  padding: 0.5rem;
-  background: #f9fafb;
-  color: #111827;
-}
-.animate-fade-in {
-  animation: fadeIn 0.3s;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Style pour la légende */
-.legend-box {
-  background: #fff;
-  border-radius: 1.25rem;
-  box-shadow: 0 4px 24px 0 rgba(60, 80, 180, 0.08);
-  padding: 2.5rem 2rem;
-  border: 2px solid #3b82f6;
-  margin-bottom: 2rem;
-}
-.legend-box ul {
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-.legend-box li {
-  margin-bottom: 0.75rem;
-  color: #1e293b;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.dark .legend-box li {
-  color: #f1f5f9;
-}
-.dark .legend-box {
-  background: #1e293b;
-  border-color: #3b82f6;
-}
-</style>
