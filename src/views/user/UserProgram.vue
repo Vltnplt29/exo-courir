@@ -5,32 +5,31 @@
     >
       Nos programmes
     </h1>
-    <div class="flex flex-col md:flex-row md:justify-center gap-4 mb-8">
+    <div class="flex flex-col md:flex-row md:justify-center gap-4 mb-8 items-start">
       <div class="flex flex-col md:flex-row gap-4 w-full">
         <button
           v-for="program in programs"
           :key="getProgramId(program)"
           @click="selectProgram(program)"
           :class="[
-            'flex-1 rounded-2xl shadow-lg bg-white dark:bg-gray-900 border-2 border-blue-200 dark:border-blue-700 p-6 hover:bg-blue-50 dark:hover:bg-blue-800 transition flex flex-col items-center',
+            'flex-1 rounded-xl shadow bg-white dark:bg-gray-900 border border-blue-200 dark:border-blue-700 p-3 sm:p-4 hover:bg-blue-50 dark:hover:bg-blue-800 transition flex flex-col items-center',
             selectedProgram && getProgramId(selectedProgram) === getProgramId(program)
               ? 'ring-2 ring-blue-500'
               : '',
           ]"
         >
-          <div class="font-bold text-lg text-blue-700 dark:text-blue-300 mb-1">
+          <div class="font-bold text-base text-blue-700 dark:text-blue-300 mb-1">
             {{ program.titre }}
           </div>
-          <div class="text-xs text-gray-500 mb-2">{{ program.categorie }}</div>
-          <div class="text-sm text-gray-700 dark:text-gray-200 text-center line-clamp-2">
+          <div class="text-s text-gray-700 dark:text-gray-200 text-center line-clamp-2">
             {{ program.description }}
           </div>
         </button>
       </div>
-      <div class="mt-2 md:mt-0">
+      <div class="mt-0 md:mt-0 text-left self-start w-1/2">
         <button
           @click="showCreateModal = true"
-          class="rounded-2xl border-2 border-dashed border-blue-400 text-blue-500 py-6 px-8 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900 transition flex flex-col items-center justify-center"
+          class="rounded-2xl border-2 border-dashed border-blue-400 text-blue-500 py-6 px-8 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900 transition flex flex-col items-center justify-center w-full"
         >
           <span class="text-3xl mb-1">+</span>
           <span>Créer un programme</span>

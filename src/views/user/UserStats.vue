@@ -118,7 +118,7 @@ import NavbarPage from '@/components/NavbarPage.vue'
 
 const userStore = useUserStore()
 const base_url = 'http://localhost:8888/cockpit-core/api'
-const bearer_token = 'VOTRE_TOKEN_ICI' // Remplace par ton vrai token Cockpit
+const bearer_token = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
 
 const stats = ref({
   progression: { completedSessions: 0, totalSessions: 0, percent: 0 },
@@ -141,6 +141,10 @@ async function fetchStats(userId) {
     },
     body: JSON.stringify({ filter: { 'user.link': userId } }),
   })
+  if (!res.ok) {
+    console.error('Erreur API Cockpit:', res.status, await res.text())
+    return
+  }
   const data = await res.json()
   if (data && data.entries && data.entries.length > 0) {
     const entries = data.entries
@@ -210,12 +214,14 @@ async function fetchStats(userId) {
 }
 
 onMounted(() => {
+  console.log('currentUser:', userStore.currentUser)
   fetchStats(userStore.currentUser?._id)
 })
 
 watch(
   () => userStore.currentUser?._id,
   (id) => {
+    console.log('currentUser changed:', userStore.currentUser)
     fetchStats(id)
   },
 )
