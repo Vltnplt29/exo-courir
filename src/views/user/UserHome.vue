@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full max-w-3xl mx-auto mt-2 sm:mt-4 px-4 pt-12 sm:pt-20">
+  <section class="w-full max-w-3xl mx-auto sm:mt-4 px-4 pt-6 sm:pt-20">
     <div
       class="bg-gradient-to-r from-blue-500 to-green-400 rounded-3xl shadow-lg p-8 flex flex-col items-center text-white mb-8"
     >
@@ -23,11 +23,24 @@
 
       <!-- Flèche et texte d'incitation à scroller (mobile uniquement) -->
       <div class="flex sm:hidden flex-col items-center pt-6 mt-3">
-        <span class="text-3xl animate-bounce">⬇️</span>
-        <span class="text-xs text-white/90 mt-1">Fais défiler pour découvrir la suite</span>
+        <span class="text-xs text-white/90 mt-1"
+          ><strong>Fais défiler pour découvrir la suite</strong></span
+        >
+        <span class="mt-8 animate-bounce">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-9 h-9 text-white drop-shadow-lg"
+            fill="none"
+            viewBox="0 0 18 24"
+            stroke="currentColor"
+            stroke-width="3"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
       </div>
     </div>
-
+    <hr class="border-t-2 border-blue-500 dark:border-blue-400 mt-10 mb-5" />
     <div class="grid md:grid-cols-2 gap-6 mb-8">
       <div class="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 flex flex-col gap-2">
         <h2 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">
@@ -48,6 +61,7 @@
           <li>Hydrate-toi, dors bien, mange équilibré, récupère.</li>
         </ul>
       </div>
+      <hr class="border-t-2 border-blue-500 dark:border-blue-400 mt-2 mb-2" />
       <div class="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 flex flex-col gap-2">
         <h2 class="text-xl font-bold text-green-600 dark:text-green-400 mb-2">Mon programme 5km</h2>
         <img
@@ -67,7 +81,7 @@
         >
       </div>
     </div>
-
+    <hr class="border-t-2 border-blue-500 dark:border-blue-400 mb-10" />
     <div class="bg-blue-50 dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col items-center mb-8">
       <h2 class="text-lg font-bold text-blue-700 dark:text-blue-300 mb-2">Conseils essentiels</h2>
 
@@ -84,12 +98,8 @@
     <div class="text-center text-gray-600 dark:text-gray-300 mt-8">
       <p class="text-lg font-semibold">
         Commence à courir, persévère, et profite de tes progrès !<br />Tu es capable de réussir ton
-        5km.
+        5 km !
       </p>
     </div>
   </section>
 </template>
-
-<script setup>
-// Page d'accueil structurée et motivante pour débuter la course à pied, avec photos Unsplash libres de droits
-</script>
