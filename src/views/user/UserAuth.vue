@@ -93,10 +93,10 @@ function handleLogin() {
 
 <template>
   <div
-    class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors px-2"
+    class="min-h-screen flex flex-col justify-start items-center bg-gray-100 dark:bg-gray-900 transition-colors px-2 pt-10 sm:pt-0"
   >
     <div
-      class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-8 rounded-3xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-700 transition-colors flex flex-col items-center"
+      class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6 sm:p-8 rounded-3xl shadow-2xl w-full max-w-xs sm:max-w-md border border-gray-200 dark:border-gray-700 transition-colors flex flex-col items-center gap-2 sm:gap-0 mt-6 sm:mt-0"
     >
       <!-- Icône SVG moderne -->
       <div
