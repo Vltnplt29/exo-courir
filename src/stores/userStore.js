@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
-const API_BASE = 'http://localhost:8888/cockpit-core/api/'
+const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val/'
 const API_KEY = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
 
 export const useUserStore = defineStore(

@@ -361,9 +361,9 @@ function handleStartProgram(program) {
 }
 import { ref } from 'vue'
 
-// Variables Cockpit API
-const base_url = 'http://localhost:8888/cockpit-core/api'
-const bearer_token = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
+// Variables Cockpit API (production ready)
+const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val'
+const API_KEY = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
 
 import { useUserStore } from '@/stores/userStore'
 
@@ -373,10 +373,10 @@ const programs = ref([])
 // Charger les programmes depuis Cockpit API au montage
 const fetchPrograms = async () => {
   try {
-    const res = await fetch(`${base_url}/content/items/programmes`, {
+    const res = await fetch(`${API_BASE}/content/items/programmes`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${bearer_token}`,
+        Authorization: `Bearer ${API_KEY}`,
       },
     })
     const data = await res.json()

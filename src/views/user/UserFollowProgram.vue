@@ -167,8 +167,8 @@ onMounted(() => {
 })
 
 // --- Cockpit API pour stats ---
-const base_url = 'http://localhost:8888/cockpit-core/api'
-const bearer_token = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
+const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val'
+const API_KEY = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
 
 // Saisie du ressenti/notes à la fin de la séance
 const feeling = ref('')

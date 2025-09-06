@@ -479,11 +479,11 @@ const selectedStat = computed(
 
 onMounted(async () => {
   const userId = userStore.currentUser?._id
-  const API_URL = 'http://localhost:8888/cockpit-core/api'
+  const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val'
   const API_TOKEN = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
   try {
     const res = await fetch(
-      `${API_URL}/content/items/userstats?filter={\"user.link\":\"${userId}\"}`,
+      `${API_BASE}/content/items/userstats?filter={\"user.link\":\"${userId}\"}`,
       {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
