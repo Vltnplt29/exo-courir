@@ -479,7 +479,7 @@ const selectedStat = computed(
 
 onMounted(async () => {
   const userId = userStore.currentUser?._id
-  const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val/'
+  const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val'
   const API_TOKEN = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
   try {
     const res = await fetch(

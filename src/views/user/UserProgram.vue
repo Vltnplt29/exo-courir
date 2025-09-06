@@ -362,7 +362,7 @@ function handleStartProgram(program) {
 import { ref } from 'vue'
 
 // Variables Cockpit API (production ready)
-const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val/'
+const API_BASE = 'https://ingrwf12.cepegra-frontend.xyz/cockpit_val'
 const API_KEY = 'API-7de5aeb31eecb18d31a429da6503f28ebee94c19'
 
 import { useUserStore } from '@/stores/userStore'
